@@ -9,7 +9,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
  * @author andyxu
@@ -32,9 +35,58 @@ public class SQLExceptrionTest {
     }
 
 
-    @Test(expected = SQLException.class)
+    @Test()
     public void testWhenSqlError() throws SQLException {
-        String sql="select * from1 test";
-        queryRunner.execute(sql);
+        String sql = "select * from tb_sms_chnl";
+        queryRunner.query(sql, rs -> {
+
+            System.out.println(rs);
+            return "";
+        });
+    }
+
+    @Test
+    public void testSQLErrorWithJdbc() throws SQLException {
+        try {
+            Connection connection = dataSource.getConnection();
+            Statement stmt = connection.createStatement();
+
+            String sql = "select * from Actor where test=1";
+
+            ResultSet rs = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+                System.out.println(rs);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
+    @Test
+    public void testJdbc() throws SQLException {
+        try {
+            // 这里简化数据库连接方式
+            Connection connection = dataSource.getConnection();
+
+            Statement stmt = connection.createStatement();
+
+            String sql = "select * from Actor where  test='1'";
+
+            ResultSet rs = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+                System.out.println(rs.getString("name"));
+            }
+        } catch (SQLException e) {
+            if(e.getErrorCode()==42122){
+                System.out.println("sql 语句错误");
+            }else{
+                e.printStackTrace();
+            }
+        }
+
     }
 }

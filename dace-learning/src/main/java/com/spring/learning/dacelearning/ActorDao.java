@@ -18,9 +18,13 @@ public class ActorDao {
     @Autowired
     JdbcTemplate jdbcTemplate;
 
+
+
+
     public List<ActorDO> queryAllActors() {
-        String sql = "select * from Actor";
+        String sql = "select * from Actor where test=1";
         List<ActorDO> actorDOS = jdbcTemplate.query(sql, (rs, rowNum) -> {
+            System.out.println("dasd");
             ActorDO actorDO = new ActorDO();
             actorDO.setId(rs.getLong("id"));
             actorDO.setName(rs.getString("name"));

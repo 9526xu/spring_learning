@@ -20,7 +20,14 @@ public class DaceLearningApplicationTests {
 
     @Test
     public void contextLoads() {
-        List<ActorDO> actorDOS=actorDao.queryAllActors();
+        List<ActorDO> actorDOS= null;
+        try {
+            actorDOS = actorDao.queryAllActors();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         Assert.assertTrue(!CollectionUtils.isEmpty(actorDOS));
     }
 
