@@ -47,19 +47,15 @@ public class SQLExceptrionTest {
 
     @Test
     public void testSQLErrorWithJdbc() throws SQLException {
-        try {
-            Connection connection = dataSource.getConnection();
-            Statement stmt = connection.createStatement();
+        Connection connection = dataSource.getConnection();
+        Statement stmt = connection.createStatement();
 
-            String sql = "select * from Actor where test=1";
+        String sql = "select * from Actor where test=1";
 
-            ResultSet rs = stmt.executeQuery(sql);
+        ResultSet rs = stmt.executeQuery(sql);
 
-            while (rs.next()) {
-                System.out.println(rs);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        while (rs.next()) {
+            System.out.println(rs);
         }
 
     }
