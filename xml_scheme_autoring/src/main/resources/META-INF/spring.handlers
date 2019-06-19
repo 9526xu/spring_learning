@@ -1,0 +1,2 @@
+http\://www.mycompany.com/schema/myns=com.spring.learning.xml.schemas.autoring.leanrn.SimpleDateFormatNamespaceHandler
+http\://www.test.com/demo=com.spring.learning.xml.schemas.autoring.leanrn.DemoNameSpaceHandler
