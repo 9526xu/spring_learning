@@ -2,16 +2,12 @@ package com.spring.learning.customizescanning;
 
 import com.spring.learning.customizescanning.annotation.CustomService;
 import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.beans.factory.support.BeanDefinitionRegistryPostProcessor;
-import org.springframework.core.annotation.AnnotationUtils;
+import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
 import org.springframework.core.type.filter.AnnotationTypeFilter;
 import org.springframework.stereotype.Component;
-import org.springframework.util.ClassUtils;
-
-import java.util.Set;
 
 
 
@@ -34,21 +30,27 @@ public class CustomScanningRegistryPostProcessor implements BeanDefinitionRegist
      */
     @Override
     public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry registry) throws BeansException {
-        CustomClassPathBeanDefinitionScanner customClassPathBeanDefinitionScanner=new CustomClassPathBeanDefinitionScanner(registry);
-        customClassPathBeanDefinitionScanner.addIncludeFilter(new AnnotationTypeFilter(CustomService.class));
-        //customClassPathBeanDefinitionScanner.scan("com.spring.learning.customizescanning.service");
+//        CustomClassPathBeanDefinitionScanner customClassPathBeanDefinitionScanner=new CustomClassPathBeanDefinitionScanner(registry);
+//        customClassPathBeanDefinitionScanner.addIncludeFilter(new AnnotationTypeFilter(CustomService.class));
+//        //customClassPathBeanDefinitionScanner.scan("com.spring.learning.customizescanning.service");
+//
+//        Set<BeanDefinition> beanDefinitionSet = customClassPathBeanDefinitionScanner.findCandidateComponents("com.spring.learning.customizescanning.service");
+//
+//        for (BeanDefinition beanDefinition : beanDefinitionSet) {
+//
+//            Class<?> beanClass = ClassUtils.resolveClassName(beanDefinition.getBeanClassName(),CustomScanningRegistryPostProcessor.class.getClassLoader());
+//
+//            CustomService service = AnnotationUtils.findAnnotation(beanClass, CustomService.class);
+//            beanDefinition.getPropertyValues().add("name",service.name());
+//            beanDefinition.getPropertyValues().add("interfaceClass",service.interfaceClass());
+//            registry.registerBeanDefinition("test",beanDefinition);
+//        }
 
-        Set<BeanDefinition> beanDefinitionSet = customClassPathBeanDefinitionScanner.findCandidateComponents("com.spring.learning.customizescanning.service");
 
-        for (BeanDefinition beanDefinition : beanDefinitionSet) {
+        ClassPathScanningCandidateComponentProvider classPathScanningCandidateComponentProvider=new ClassPathScanningCandidateComponentProvider(false);
+        classPathScanningCandidateComponentProvider.addIncludeFilter(new AnnotationTypeFilter(CustomService.class));
+        classPathScanningCandidateComponentProvider.findCandidateComponents("com.spring.learning.customizescanning.service");
 
-            Class<?> beanClass = ClassUtils.resolveClassName(beanDefinition.getBeanClassName(),CustomScanningRegistryPostProcessor.class.getClassLoader());
-
-            CustomService service = AnnotationUtils.findAnnotation(beanClass, CustomService.class);
-            beanDefinition.getPropertyValues().add("name",service.name());
-            beanDefinition.getPropertyValues().add("interfaceClass",service.interfaceClass());
-            registry.registerBeanDefinition("test",beanDefinition);
-        }
 
     }
 

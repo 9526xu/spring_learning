@@ -1,6 +1,7 @@
-package com.spring.learning.customizescanning.service.impl;
+package com.spring.learning.customizescanning.test.service.impl;
 
-import com.spring.learning.customizescanning.service.IProviderService;
+import com.spring.learning.customizescanning.test.service.IProviderService;
+import org.springframework.stereotype.Component;
 
 /**
  * @author andyxu
@@ -8,6 +9,7 @@ import com.spring.learning.customizescanning.service.IProviderService;
  * @Date 2019/6/20 21:04
  * @since
  */
+@Component
 public class ProviderServiceImpl implements IProviderService {
     @Override
     public String provider() {

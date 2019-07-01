@@ -1,7 +1,7 @@
-package com.spring.learning.customizescanning.service.impl;
+package com.spring.learning.customizescanning.test.service.impl;
 
 import com.spring.learning.customizescanning.annotation.CustomService;
-import com.spring.learning.customizescanning.service.IHelloService;
+import com.spring.learning.customizescanning.test.service.IHelloService;
 import lombok.Data;
 
 /**

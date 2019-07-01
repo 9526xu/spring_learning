@@ -1,4 +1,4 @@
-package com.spring.learning.customizescanning.service;
+package com.spring.learning.customizescanning.test.service;
 
 /**
  * @author andyxu
